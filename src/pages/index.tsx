@@ -1,11 +1,18 @@
-import Head from 'next/head'
-import Image from 'next/image'
-import { Inter } from '@next/font/google'
-import styles from '@/styles/Home.module.css'
+import Head from 'next/head';
+import Image from 'next/image';
+import { Inter } from '@next/font/google';
+import styles from '@/styles/Home.module.css';
 
-const inter = Inter({ subsets: ['latin'] })
+const inter = Inter({ subsets: ['latin'] });
 
-export default function Home() {
+interface IProps {
+  absences: any;
+  members: any;
+}
+
+export default function Home({ absences }: IProps) {
+  console.log('absences >>', absences);
+
   return (
     <>
       <Head>
@@ -119,5 +126,12 @@ export default function Home() {
         </div>
       </main>
     </>
-  )
+  );
+}
+
+export async function getStaticProps() {
+  const absencesRes = await fetch('http://localhost:3000/api/absences');
+  const absences = await absencesRes.json();
+
+  return { props: { absences } };
 }
