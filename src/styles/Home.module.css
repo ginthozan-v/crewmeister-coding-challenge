@@ -31,13 +31,18 @@
   margin-top: 2px;
 }
 
-.selectInput {
+.input {
   margin-top: 5px;
   border: 1px solid #ddd;
   padding: 8px;
   width: 200px;
+  text-transform: capitalize;
 }
 
-.selectInput:focus {
+.input:focus {
   outline: transparent;
+}
+
+.input option {
+  text-transform: capitalize;
 }

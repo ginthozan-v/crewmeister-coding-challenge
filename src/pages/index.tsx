@@ -9,6 +9,7 @@ export default function Home() {
   const [error, setError] = useState('');
   const [absenceState, setAbsenceState] = useState<any | null>([]);
   const [vacationType, setVacationType] = useState('');
+  const [absenceTypes, setAbsenceTypes] = useState([]);
   const [startDate, setStartDate] = useState('');
 
   const columns = [
@@ -46,9 +47,15 @@ export default function Home() {
     },
   ];
 
-  useEffect(() => {
-    setIsLoading(true);
-    fetch(`/api/absences`)
+  const fetchAbsenceTypes = async () => {
+    await fetch(`/api/absence-types`)
+      .then((res) => res.json())
+      .then((data) => setAbsenceTypes(data))
+      .catch((error) => setError(error.error));
+  };
+
+  const fetchAbsences = async (vacationType?: string, startDate?: string) => {
+    await fetch(`/api/absences`)
       .then((res) => res.json())
       .then((data) => {
         if (vacationType && startDate) {
@@ -70,6 +77,12 @@ export default function Home() {
         setError(error.error);
         setIsLoading(false);
       });
+  };
+
+  useEffect(() => {
+    setIsLoading(true);
+    fetchAbsenceTypes();
+    fetchAbsences(vacationType, startDate);
   }, [vacationType, startDate]);
 
   return (
@@ -92,19 +105,22 @@ export default function Home() {
             <select
               name="absenceType"
               id="absenceType"
-              className={styles.selectInput}
+              className={styles.input}
               onChange={(e) => setVacationType(e.target.value)}
             >
               <option value="">All</option>
-              <option value="sickness">Sickness</option>
-              <option value="vacation">Vacation</option>
+              {absenceTypes.map((absent: any, i) => (
+                <option key={i} value={absent.value}>
+                  {absent.label}
+                </option>
+              ))}
             </select>
           </div>
           <div>
             <p className={styles.totalTitle}>Filter by start date</p>
             <input
               type="date"
-              className={styles.selectInput}
+              className={styles.input}
               onChange={(e) => setStartDate(e.target.value)}
             />
           </div>
