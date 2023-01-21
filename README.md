@@ -1,4 +1,4 @@
-# Calculator
+# Crewmeister coding challenge
 
 Next.js | TypeScript | Jest | Vercel | Git
 
