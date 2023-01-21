@@ -1,3 +1,9 @@
+# Calculator
+
+Next.js | TypeScript | Jest | Vercel | Git
+
+Preview live on [crewmeister-coding-challenge.vercel.app](https://crewmeister-coding-challenge.vercel.app/)
+
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
 ## Getting Started
