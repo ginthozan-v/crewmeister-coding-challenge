@@ -2,7 +2,31 @@ import { useMemo } from 'react';
 import { useTable, usePagination } from 'react-table';
 import style from './TableComponent.module.css';
 
-const TableComponent = ({ tableColumns, tableData, isLoading, error }: any) => {
+interface IDataObject {
+  id: string;
+  name: string;
+  type: string;
+  period: string;
+  memberNote: string;
+  status: string;
+  admitterNote: string;
+  startDate: string;
+  endDate: string;
+}
+
+interface ITableObject {
+  tableColumns: any;
+  tableData: IDataObject[];
+  isLoading: boolean;
+  error: string;
+}
+
+const TableComponent = ({
+  tableColumns,
+  tableData,
+  isLoading,
+  error,
+}: ITableObject) => {
   const columns = useMemo(() => tableColumns, [tableColumns]);
   const data = useMemo(() => tableData, [tableData]);
 

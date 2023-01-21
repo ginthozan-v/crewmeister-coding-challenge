@@ -1,15 +1,8 @@
 import Head from 'next/head';
-import { Inter } from '@next/font/google';
-import styles from '@/styles/Home.module.css';
-import TableComponent from 'components/TableComponent';
+import styles from '../../src/styles/Home.module.css';
+
 import { useEffect, useState } from 'react';
-
-const inter = Inter({ subsets: ['latin'] });
-
-interface IProps {
-  absences: any;
-  members: any;
-}
+import TableComponent from '../../components/TableComponent';
 
 export default function Home() {
   const [isLoading, setIsLoading] = useState(false);
@@ -55,7 +48,7 @@ export default function Home() {
 
   useEffect(() => {
     setIsLoading(true);
-    fetch('http://localhost:3000/api/absences')
+    fetch(`/api/absences`)
       .then((res) => res.json())
       .then((data) => {
         if (vacationType && startDate) {
@@ -87,7 +80,7 @@ export default function Home() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <main className={`${styles.main} ${inter.className}`}>
+      <main className={styles.main}>
         <h1 className={styles.title}>Absence Manager</h1>
         <div className={styles.tableHeader}>
           <div>
