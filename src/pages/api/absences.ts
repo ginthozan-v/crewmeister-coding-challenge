@@ -3,10 +3,25 @@ import type { NextApiRequest, NextApiResponse } from 'next';
 import { promises as fs } from 'fs';
 import path from 'path';
 
-export function days_between(date1: any, date2: any) {
-  const ONE_DAY = 1000 * 60 * 60 * 24;
-  const differenceMs = Math.abs(date1 - date2);
-  return Math.round(differenceMs / ONE_DAY);
+function days_between(startDate: Date, endDate: Date) {
+  const msInDay = 24 * 60 * 60 * 1000;
+  return (
+    Math.round(Math.abs(Number(endDate) - Number(startDate)) / msInDay) + 1
+  );
+}
+
+function absent_status(
+  createdAt: string,
+  confirmedAt: string,
+  rejectedAt: string
+) {
+  if (createdAt && !confirmedAt && !rejectedAt) {
+    return 'Requested';
+  } else if (confirmedAt && !rejectedAt) {
+    return 'Confirmed';
+  } else if (!confirmedAt && rejectedAt) {
+    return 'Rejected';
+  }
 }
 
 export default async function handler(
@@ -31,11 +46,20 @@ export default async function handler(
         if (member.userId === absent.userId) {
           filtered.push({
             id: member.id,
+            userId: member.userId,
             name: member.name,
             type: absent.type,
-            period: days_between(absent.startDate, absent.endDate) + ' days',
+            period:
+              days_between(
+                new Date(absent.startDate),
+                new Date(absent.endDate)
+              ) + ' days',
             memberNote: absent.memberNote,
-            status: 'Requested',
+            status: absent_status(
+              absent.createdAt,
+              absent.confirmedAt,
+              absent.rejectedAt
+            ),
             admitterNote: absent.admitterNote,
             startDate: absent.startDate,
             endDate: absent.endDate,

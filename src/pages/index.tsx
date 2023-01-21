@@ -3,7 +3,6 @@ import { Inter } from '@next/font/google';
 import styles from '@/styles/Home.module.css';
 import TableComponent from 'components/TableComponent';
 import { useEffect, useState } from 'react';
-import { useRouter } from 'next/router';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -18,7 +17,6 @@ export default function Home() {
   const [absenceState, setAbsenceState] = useState<any | null>([]);
   const [vacationType, setVacationType] = useState('');
   const [startDate, setStartDate] = useState('');
-  const router = useRouter();
 
   const columns = [
     {
@@ -54,13 +52,6 @@ export default function Home() {
       accessor: 'endDate',
     },
   ];
-
-  const handleClick = (value: number) => {
-    router.push({
-      pathname: '/member/[memberId]',
-      query: { memberId: value },
-    });
-  };
 
   useEffect(() => {
     setIsLoading(true);
@@ -131,7 +122,6 @@ export default function Home() {
           tableData={absenceState}
           isLoading={isLoading}
           error={error}
-          handleClick={handleClick}
         />
       </main>
     </>
