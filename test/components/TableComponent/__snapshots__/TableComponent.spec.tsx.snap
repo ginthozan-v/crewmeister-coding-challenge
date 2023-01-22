@@ -1,0 +1,127 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`I want to see a list of absences should match 1`] = `
+<div>
+  <table
+    class="table"
+    role="table"
+  >
+    <thead>
+      <tr
+        role="row"
+      >
+        <th
+          colspan="1"
+          role="columnheader"
+        >
+          Member name
+        </th>
+        <th
+          colspan="1"
+          role="columnheader"
+        >
+          Type of absence
+        </th>
+      </tr>
+    </thead>
+    <tbody
+      role="rowgroup"
+    >
+      <tr
+        role="row"
+      >
+        <td
+          role="cell"
+        >
+          Max
+        </td>
+        <td
+          role="cell"
+        >
+          vacation
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <div
+    class="btnGroup"
+  >
+    <button
+      disabled=""
+    >
+      &lt;
+    </button>
+    <span>
+      1
+    </span>
+    <button
+      disabled=""
+    >
+      &gt;
+    </button>
+  </div>
+</div>
+`;
+
+exports[`I want to see a list of absences should match the options 1`] = `
+<div>
+  <table
+    class="table"
+    role="table"
+  >
+    <thead>
+      <tr
+        role="row"
+      >
+        <th
+          colspan="1"
+          role="columnheader"
+        >
+          Member name
+        </th>
+        <th
+          colspan="1"
+          role="columnheader"
+        >
+          Type of absence
+        </th>
+      </tr>
+    </thead>
+    <tbody
+      role="rowgroup"
+    >
+      <tr
+        role="row"
+      >
+        <td
+          role="cell"
+        >
+          Max
+        </td>
+        <td
+          role="cell"
+        >
+          vacation
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <div
+    class="btnGroup"
+  >
+    <button
+      disabled=""
+    >
+      &lt;
+    </button>
+    <span>
+      1
+    </span>
+    <button
+      disabled=""
+    >
+      &gt;
+    </button>
+  </div>
+</div>
+`;

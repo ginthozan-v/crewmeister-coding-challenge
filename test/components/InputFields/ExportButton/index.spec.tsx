@@ -1,11 +1,11 @@
 import React from 'react';
 import { render } from '@testing-library/react';
-import Filter from '../../../../components/InputFields/FilterInput';
+import ExportButton from '../../../../components/InputFields/ExportButton';
 
-describe('I want to filter absences by type', () => {
+describe('I can generate an iCal file', () => {
   test('should match', () => {
     const { container } = render(
-      <Filter
+      <ExportButton
         label="Filter by absence type"
         data={[
           { label: 'sickness', value: 'sickness' },
@@ -19,7 +19,7 @@ describe('I want to filter absences by type', () => {
 
   test('should check the options', () => {
     const view = render(
-      <Filter
+      <ExportButton
         label="Filter by absence type"
         data={[
           { label: 'sickness', value: 'sickness' },

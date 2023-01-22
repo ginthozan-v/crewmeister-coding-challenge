@@ -61,3 +61,65 @@ exports[`Filter Component should match the snapshot 1`] = `
   </select>
 </div>
 `;
+
+exports[`I want to filter absences by type should check the options 1`] = `
+<div>
+  <p
+    class="title"
+  >
+    Filter by absence type
+  </p>
+  <select
+    class="input"
+    id="absenceType"
+    name="absenceType"
+  >
+    <option
+      value=""
+    >
+      All
+    </option>
+    <option
+      value="sickness"
+    >
+      sickness
+    </option>
+    <option
+      value="vacation"
+    >
+      vacation
+    </option>
+  </select>
+</div>
+`;
+
+exports[`I want to filter absences by type should match 1`] = `
+<div>
+  <p
+    class="title"
+  >
+    Filter by absence type
+  </p>
+  <select
+    class="input"
+    id="absenceType"
+    name="absenceType"
+  >
+    <option
+      value=""
+    >
+      All
+    </option>
+    <option
+      value="sickness"
+    >
+      sickness
+    </option>
+    <option
+      value="vacation"
+    >
+      vacation
+    </option>
+  </select>
+</div>
+`;

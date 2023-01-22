@@ -1,10 +1,15 @@
 import React from 'react';
 import styles from './DatePicker.module.css';
 
-const DatePicker = ({ setStartDate }: any) => {
+interface IDatePickerProps {
+  label: string;
+  setStartDate: (value: string) => void;
+}
+
+const DatePicker = ({ label, setStartDate }: IDatePickerProps) => {
   return (
     <>
-      <p className={styles.title}>Filter by start date</p>
+      <p className={styles.title}>{label}</p>
       <input
         type="date"
         className={styles.input}
