@@ -1,8 +1,12 @@
+.tableWrapper {
+  width: 100%;
+  overflow-x: auto;
+}
+
 .table {
   background-color: white;
   border-collapse: collapse;
   width: 100%;
-  table-layout: fixed;
 }
 
 .table td,
@@ -21,6 +25,7 @@
 
 .table td {
   font-size: 14px;
+  width: 200px;
 }
 
 .table tr:hover {

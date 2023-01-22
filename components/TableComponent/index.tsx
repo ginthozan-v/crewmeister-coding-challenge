@@ -49,7 +49,7 @@ const TableComponent = ({
     usePagination
   );
   return (
-    <>
+    <div className={style.tableWrapper}>
       <table className={style.table} {...getTableProps()}>
         <thead>
           {headerGroups.map((headerGroup, i) => (
@@ -106,7 +106,7 @@ const TableComponent = ({
           {'>'}
         </button>
       </div>
-    </>
+    </div>
   );
 };
 
