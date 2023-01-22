@@ -1,4 +1,4 @@
-export function absent_status(
+export function absentStatus(
   createdAt: string,
   confirmedAt: string,
   rejectedAt: string

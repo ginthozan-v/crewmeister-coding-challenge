@@ -5,6 +5,7 @@ import TableComponent from '../../components/TableComponent';
 import ExportButton from '../../components/InputFields/ExportButton';
 import DatePicker from '../../components/InputFields/DatePicker';
 import FilterInput from '../../components/InputFields/FilterInput';
+import { filterByDates } from 'utils/filterDate';
 
 export default function Home() {
   const [isLoading, setIsLoading] = useState(false);
@@ -65,7 +66,9 @@ export default function Home() {
     await fetch(`/api/absences`)
       .then((res) => res.json())
       .then((data) => {
-        if (vacationType && startDate) {
+        if (data.error) {
+          setError(data.error);
+        } else if (vacationType && startDate) {
           setAbsenceState(
             data.filter(
               (x: any) => x.type === vacationType && x.startDate >= startDate
@@ -74,7 +77,11 @@ export default function Home() {
         } else if (vacationType) {
           setAbsenceState(data.filter((x: any) => x.type === vacationType));
         } else if (startDate) {
-          setAbsenceState(data.filter((x: any) => x.startDate === startDate));
+          setAbsenceState(
+            data.filter((x: any) =>
+              filterByDates(x.startDate, x.endDate, startDate)
+            )
+          );
         } else {
           setAbsenceState(data);
         }
@@ -87,8 +94,11 @@ export default function Home() {
   };
 
   useEffect(() => {
-    setIsLoading(true);
     fetchAbsenceTypes();
+  }, []);
+
+  useEffect(() => {
+    setIsLoading(true);
     fetchAbsences(vacationType, startDate);
   }, [vacationType, startDate]);
 
@@ -115,10 +125,7 @@ export default function Home() {
             />
           </div>
           <div>
-            <DatePicker
-              label="Filter by start date"
-              setStartDate={setStartDate}
-            />
+            <DatePicker label="Filter by date" setStartDate={setStartDate} />
           </div>
         </div>
 
