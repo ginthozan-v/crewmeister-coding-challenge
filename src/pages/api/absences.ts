@@ -2,27 +2,8 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 import { promises as fs } from 'fs';
 import path from 'path';
-
-function days_between(startDate: Date, endDate: Date) {
-  const msInDay = 24 * 60 * 60 * 1000;
-  return (
-    Math.round(Math.abs(Number(endDate) - Number(startDate)) / msInDay) + 1
-  );
-}
-
-function absent_status(
-  createdAt: string,
-  confirmedAt: string,
-  rejectedAt: string
-) {
-  if (createdAt && !confirmedAt && !rejectedAt) {
-    return 'Requested';
-  } else if (confirmedAt && !rejectedAt) {
-    return 'Confirmed';
-  } else if (!confirmedAt && rejectedAt) {
-    return 'Rejected';
-  }
-}
+import { days_between } from 'utils/days_between';
+import { absent_status } from 'utils/absent_status';
 
 export default async function handler(
   req: NextApiRequest,

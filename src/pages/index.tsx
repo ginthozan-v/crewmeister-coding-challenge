@@ -1,8 +1,22 @@
 import Head from 'next/head';
-import styles from '../../src/styles/Home.module.css';
 
 import { useEffect, useState } from 'react';
+import styles from '../../src/styles/Home.module.css';
 import TableComponent from '../../components/TableComponent';
+import { download } from 'utils/download';
+// @ts-ignore
+import { ICalendar } from 'datebook';
+import ExportButton from 'components/InputFields/ExportButton';
+
+import DatePicker from 'components/InputFields/DatePicker';
+import FilterInput from 'components/InputFields/FilterInput';
+
+interface IiCalObject {
+  title: string;
+  description: string;
+  start: Date;
+  end: Date;
+}
 
 export default function Home() {
   const [isLoading, setIsLoading] = useState(false);
@@ -45,7 +59,29 @@ export default function Home() {
       Header: 'End date',
       accessor: 'endDate',
     },
+    {
+      Header: '',
+      accessor: 'action',
+      Cell: (row: any) => (
+        <ExportButton data={row} handleExport={handleExport} />
+      ),
+    },
   ];
+
+  const handleExport = async (row: any) => {
+    const start = new Date(row.startDate);
+    const end = new Date(row.endDate);
+
+    const obj: IiCalObject = {
+      title: `${row.name} is on ${row.type} leave`,
+      description: row.memberNote,
+      start,
+      end,
+    };
+
+    const icalendar: ICalendar = new ICalendar(obj);
+    download(`${row.name}.ics`, icalendar.render());
+  };
 
   const fetchAbsenceTypes = async () => {
     await fetch(`/api/absence-types`)
@@ -101,28 +137,14 @@ export default function Home() {
             <h6 className={styles.total}>{absenceState?.length}</h6>
           </div>
           <div>
-            <p className={styles.totalTitle}>Filter by absence type</p>
-            <select
-              name="absenceType"
-              id="absenceType"
-              className={styles.input}
-              onChange={(e) => setVacationType(e.target.value)}
-            >
-              <option value="">All</option>
-              {absenceTypes.map((absent: any, i) => (
-                <option key={i} value={absent.value}>
-                  {absent.label}
-                </option>
-              ))}
-            </select>
+            <FilterInput
+              label="Filter by absence type"
+              data={absenceTypes}
+              setVacationType={setVacationType}
+            />
           </div>
           <div>
-            <p className={styles.totalTitle}>Filter by start date</p>
-            <input
-              type="date"
-              className={styles.input}
-              onChange={(e) => setStartDate(e.target.value)}
-            />
+            <DatePicker setStartDate={setStartDate} />
           </div>
         </div>
 
