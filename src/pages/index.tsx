@@ -71,7 +71,9 @@ export default function Home() {
         } else if (vacationType && startDate) {
           setAbsenceState(
             data.filter(
-              (x: any) => x.type === vacationType && x.startDate >= startDate
+              (x: any) =>
+                x.type === vacationType &&
+                filterByDates(x.startDate, x.endDate, startDate)
             )
           );
         } else if (vacationType) {
